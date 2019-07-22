@@ -3,12 +3,40 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.heshicaihao.baidumap"
+        applicationId "com.sf.recovery.staff"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
     }
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+            //说明so的路径为该libs路径，关联所有地图SDK的so文件
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../release.jks')
+            storePassword "Sf_2017Fix"
+            keyAlias "Sf_fixmember"
+            keyPassword "Sf_fix1024member"
+        }
+        release {
+            storeFile file('../release.jks')
+            storePassword "Sf_2017Fix"
+            keyAlias "Sf_fixmember"
+            keyPassword "Sf_fix1024member"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -18,8 +46,12 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //版本随意（非必须，引用可以解决无法预览问题）
+    implementation files('libs/BaiduLBS_Android.jar')
+
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
 }
