@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
-import com.sf.recovery.staff.BuildConfig;
 
 /***
  *                    .::::.
