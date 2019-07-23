@@ -96,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
      * @param userLatLngStr
      */
     public void userMarkerCorrdinate(String userLatLngStr) {
-        userLatLng = JSON.parseObject(userLatLngStr, LatLng.class);
+        Spot spot = JSON.parseObject(userLatLngStr, Spot.class);
+        userLatLng = new LatLng(spot.getLatitude(),spot.getLongitude());
     }
 
     /**
