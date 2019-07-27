@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private String engineerNormalMarkerName;
     //未到达签到范围
     private String engineerAbNormalMarkerName;
+    //到达签到范围
+    private  String engineerMarkerName;
     //圆圈半径
     private int radius = 1000;
     //地图缩放层级
@@ -66,20 +68,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+
+
+        new Thread( new Runnable() {
+            @Override
+            public void run() {
+//                try {
+//                    Thread.sleep( 5000 );
+                    userLatLng = new LatLng(22.5379695320, 113.9431615175);
+                    userMarkName = "王二小的家";
+                    engineerMarkerName = "已到达签到范围";
+                    startLocation();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+            }
+        } ).start();
     }
 
-    private void initView() {
-        mMapView = findViewById(R.id.mapview);
-        mBaiduMap = mMapView.getMap();
-        hideBaidulogo();
-        //设置客户家位置
-//        userLatLng = new LatLng(22.5362579907,113.9553466268);
-        userLatLng = new LatLng(22.5379116697, 113.9313512825);
-//        userLatLng = new LatLng(22.5379695320,113.9431615175);
-        initLocation();
-        startLocation();
-
-    }
 
     /**
      * 设置用户家的名字
@@ -270,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void getBitmapMarker(LatLng cenpt) {
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.location_map_marker, null);
+        View view = inflater.inflate(R.layout.view_map_location_marker, null);
         TextView txt = view.findViewById(R.id.location_map_marker_name);
         txt.setText(userMarkName);
         txt.setTextSize(userMarkerSize);
@@ -314,11 +320,7 @@ public class MainActivity extends AppCompatActivity {
         button.setPadding(15, 2, 15, 2);
         Double distance = DistanceUtil.getDistance(userLatLng, enginnerLatLng);
         Log.d("distance:", "" + distance);
-        if (distance <= radius) {
-            button.setText("engineerNormalMarkerName ");
-        } else {
-            button.setText("engineerAbNormalMarkerName ");
-        }
+        button.setText(engineerMarkerName);
         //-100 InfoWindow相对于point在y轴的偏移量
         InfoWindow mInfoWindow = new InfoWindow(button, cenpt, -50);
         //使InfoWindow生效
@@ -424,7 +426,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setEnginnerLocationCenter(LatLng cenpt) {
         getEngineerLocationMarker(cenpt);
-        if (!TextUtils.isEmpty(engineerNormalMarkerName)&&!TextUtils.isEmpty(engineerAbNormalMarkerName )){
+        if (!TextUtils.isEmpty(engineerMarkerName)){
             setEngineerLocationText(cenpt);
         }
 
@@ -464,6 +466,20 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap = Bitmap.createBitmap(cacheBitmap);
 
         return bitmap;
+    }
+
+
+    private void initView() {
+        mMapView = findViewById(R.id.mapview);
+        mBaiduMap = mMapView.getMap();
+        hideBaidulogo();
+        //设置客户家位置
+//        userLatLng = new LatLng(22.5362579907,113.9553466268);
+//        userLatLng = new LatLng(22.5379116697, 113.9313512825);
+//        userLatLng = new LatLng(22.5379695320,113.9431615175);
+        initLocation();
+        startLocation();
+
     }
 
 
