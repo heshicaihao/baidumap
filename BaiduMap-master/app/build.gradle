@@ -48,14 +48,12 @@ android {
 }
 
 dependencies {
-//    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    //版本随意（非必须，引用可以解决无法预览问题）
-    implementation files('libs/BaiduLBS_Android.jar')
-
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.alibaba:fastjson:1.2.50'
-	implementation 'com.alibaba:fastjson:0.0.0'
+	implementation 'com.heshicaihao:baidumap:0.0.0'
+
 
 }
