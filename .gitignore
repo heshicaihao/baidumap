@@ -4,3 +4,5 @@
 /BaiduMap-master/.gradle
 /BaiduMap-master/app/build
 /BaiduMap-master/app/*.iml
+/BaiduMap-master/baidumap/build
+/BaiduMap-master/baidumap/*.iml
